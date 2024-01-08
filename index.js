@@ -8,13 +8,13 @@ const port = process.env.PORT || 5000;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require("nodemailer");
 const DBConnect = require("./utils/BDConnect");
-const toolsRoute = require("./routes/toolsRoute");
+const toolsRoute = require("./routes/v1/toolsRoute");
 
 app.use(cors());
 app.use(express.json());
 
 DBConnect();
-app.use("/tools", toolsRoute);
+app.use("/api/v1/tools", toolsRoute);
 
 async function run() {
   // try {
@@ -183,6 +183,11 @@ run().catch(console.dir);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
+});
+
+// While no routes found
+app.all("*", (req, res) => {
+  res.send("No routes found");
 });
 
 app.listen(port, () => {
