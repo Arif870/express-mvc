@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // Application level middleware
-app.use(viewCount);
+// app.use(viewCount);
 
 DBConnect();
 app.use("/api/v1/tools", toolsRoute);
